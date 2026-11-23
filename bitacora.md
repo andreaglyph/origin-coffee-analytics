@@ -28,3 +28,111 @@ Durante la exploración de los datos en datos.js, se identificaron tres problema
 3. Duplicidad potencial de Clientes con registros múltiples:
    - Problema: Algunos clientes (como C01) aparecen en múltiples transacciones en fechas distintas (id: 1, id: 4, id: 11), lo que es un comportamiento de negocio válido, pero al calcular clientes únicos o frecuentes requiere un análisis con estructuras de control adecuadas (por ejemplo, usando conjuntos o acumuladores por ID de cliente).
    - Decisión: Tratar el campo cliente como una clave categórica para identificar frecuencias de compra y asegurar que los rankings por cliente agrupen correctamente todas sus transacciones históricas sin duplicar identificadores.
+
+DEL CICLO AL MÉTODO: RANKINGS Y AGRUPACIONES
+
+1. TOTAL VENDIDO
+
+¿Qué recorro?
+Recorro todas las ventas del arreglo.
+
+¿Qué filtro?
+No filtro ninguna venta.
+
+¿Qué transformo?
+Calculo el valor de cada venta multiplicando la cantidad por el precio.
+
+¿Qué acumulo?
+Sumo el dinero de todas las ventas utilizando reduce().
+
+¿Cómo agrupo?
+No agrupo, solamente acumulo el total vendido.
+
+2. UNIDADES VENDIDAS
+
+¿Qué recorro?
+Recorro todas las ventas del arreglo.
+
+¿Qué filtro?
+No filtro ningún elemento.
+
+¿Qué transformo?
+Obtengo la cantidad de unidades de cada venta.
+
+¿Qué acumulo?
+Sumo las cantidades para conocer el total de unidades vendidas.
+
+¿Cómo agrupo?
+No agrupo, utilizo reduce() para sumar todas las unidades.
+
+3. VENTAS POR CIUDAD
+
+¿Qué recorro?
+Recorro las ventas del arreglo.
+
+¿Qué filtro?
+Selecciono solamente las ventas que pertenecen a la ciudad indicada.
+
+¿Qué transformo?
+Normalizo el nombre de la ciudad utilizando trim() y toLowerCase() para evitar diferencias por espacios o mayúsculas.
+
+¿Qué acumulo?
+Sumo el valor de las ventas que corresponden a esa ciudad.
+
+¿Cómo agrupo?
+Utilizo filter() para seleccionar las ventas y reduce() para calcular el total.
+
+4. TOTAL VENDIDO POR CIUDAD
+
+¿Qué recorro?
+Recorro todas las ventas registradas.
+
+¿Qué filtro?
+No filtro ninguna venta.
+
+¿Qué transformo?
+Normalizo los nombres de las ciudades para que, por ejemplo, "Bogotá" y "Bogotá " pertenezcan al mismo grupo.
+
+¿Qué acumulo?
+Acumulo el dinero generado por cada ciudad.
+
+¿Cómo agrupo?
+Utilizo un objeto como diccionario, donde cada ciudad tiene su propio total de ventas.
+
+5. UNIDADES POR PRODUCTO
+
+¿Qué recorro?
+Recorro todas las ventas del arreglo.
+
+¿Qué filtro?
+No filtro productos.
+
+¿Qué transformo?
+Obtengo el nombre del producto y la cantidad vendida.
+
+¿Qué acumulo?
+Sumo las unidades de cada producto.
+
+¿Cómo agrupo?
+Utilizo un objeto como diccionario para reunir las cantidades de las ventas que tienen el mismo producto.
+
+6. TOP 3 PRODUCTOS POR VALOR
+
+¿Qué recorro?
+Recorro todas las ventas registradas.
+
+¿Qué filtro?
+No filtro ventas individualmente.
+
+¿Qué transformo?
+Calculo cuánto dinero genera cada producto.
+
+¿Qué acumulo?
+Sumo el valor de las ventas correspondientes a cada producto.
+
+¿Cómo agrupo?
+Utilizo reduce() para agrupar las ventas por producto, sort() para ordenar de mayor a menor y slice() para seleccionar los tres primeros productos. Finalmente, utilizo map() para asignar una posición a cada uno.
+
+CONCLUSIÓN
+
+Con esta actividad aprendí a utilizar métodos de arreglos como map(), filter() y reduce() para trabajar con información de ventas. También aprendí a agrupar datos mediante objetos, ordenar productos según el dinero generado y seleccionar los primeros resultados sin modificar el arreglo original. Además, comprendí la importancia de comparar los resultados de los ciclos con los métodos para comprobar que ambos realizan el mismo proceso.
