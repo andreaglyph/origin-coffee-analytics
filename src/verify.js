@@ -1,4 +1,3 @@
-
 const { ventas } = require("./data.js");
 
 const {
@@ -17,10 +16,6 @@ const {
 
 const { isDeepStrictEqual } = require("node:util");
 
-/* =====================================
-   FUNCIÓN DE VERIFICACIÓN
-===================================== */
-
 function verificar(nombre, resultadoCiclo, resultadoMetodo) {
     if (isDeepStrictEqual(resultadoCiclo, resultadoMetodo)) {
         console.log(nombre + ": OK");
@@ -30,10 +25,6 @@ function verificar(nombre, resultadoCiclo, resultadoMetodo) {
         console.log("Método:", resultadoMetodo);
     }
 }
-
-/* =====================================
-   VERIFICACIÓN DE INDICADORES
-===================================== */
 
 console.log("\n--- VERIFICACIÓN DE INDICADORES ---");
 
@@ -68,11 +59,6 @@ console.log(unidadesPorProducto(ventas));
 console.log("\n--- TOP 3 PRODUCTOS POR VALOR ---");
 console.log(topProductosPorValor(ventas, 3));
 
-/* =====================================
-   PRUEBA DEL ERROR 1
-   Total vendido incorrecto
-===================================== */
-
 function totalVendidoError(ventas) {
     return ventas.reduce((total, venta) => {
         return total + venta.precio;
@@ -93,11 +79,6 @@ console.log(
         ? "OK"
         : "DIFERENTE"
 );
-
-/* =====================================
-   PRUEBA DEL ERROR 2
-   Ventas por ciudad
-===================================== */
 
 function ventasPorCiudadError(ventas, ciudad) {
     return ventas.filter(venta => venta.ciudad === ciudad);
