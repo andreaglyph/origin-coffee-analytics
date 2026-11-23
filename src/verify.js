@@ -13,11 +13,13 @@ const {
     totalPorCiudad,
     unidadesPorProducto,
     topProductosPorValor
-} = require("./analitica.js");
+} = require("./analytics.js");
 
 const { isDeepStrictEqual } = require("node:util");
 
-/*FUNCIÓN DE VERIFICACIÓN*/
+/* =====================================
+   FUNCIÓN DE VERIFICACIÓN
+===================================== */
 
 function verificar(nombre, resultadoCiclo, resultadoMetodo) {
     if (isDeepStrictEqual(resultadoCiclo, resultadoMetodo)) {
@@ -29,7 +31,9 @@ function verificar(nombre, resultadoCiclo, resultadoMetodo) {
     }
 }
 
-/*COMPARAR INDICADORES*/
+/* =====================================
+   VERIFICACIÓN DE INDICADORES
+===================================== */
 
 console.log("\n--- VERIFICACIÓN DE INDICADORES ---");
 
@@ -51,7 +55,9 @@ verificar(
     ventasPorCiudadM(ventas, "Medellín")
 );
 
-/*MOSTRAR AGRUPACIONES Y RANKINGS*/
+/* =====================================
+   MOSTRAR AGRUPACIONES Y RANKINGS
+===================================== */
 
 console.log("\n--- TOTAL VENDIDO POR CIUDAD ---");
 console.log(totalPorCiudad(ventas));
@@ -61,3 +67,58 @@ console.log(unidadesPorProducto(ventas));
 
 console.log("\n--- TOP 3 PRODUCTOS POR VALOR ---");
 console.log(topProductosPorValor(ventas, 3));
+
+/* =====================================
+   PRUEBA DEL ERROR 1
+   Total vendido incorrecto
+===================================== */
+
+function totalVendidoError(ventas) {
+    return ventas.reduce((total, venta) => {
+        return total + venta.precio;
+    }, 0);
+}
+
+console.log("\n--- PRUEBA DEL ERROR 1 ---");
+
+const resultadoIncorrecto = totalVendidoError(ventas);
+const resultadoCorrecto = totalVendidoM(ventas);
+
+console.log("Resultado anterior:", resultadoIncorrecto);
+console.log("Resultado corregido:", resultadoCorrecto);
+
+console.log(
+    "¿La corrección coincide con el ciclo?:",
+    isDeepStrictEqual(totalVendido(ventas), resultadoCorrecto)
+        ? "OK"
+        : "DIFERENTE"
+);
+
+/* =====================================
+   PRUEBA DEL ERROR 2
+   Ventas por ciudad
+===================================== */
+
+function ventasPorCiudadError(ventas, ciudad) {
+    return ventas.filter(venta => venta.ciudad === ciudad);
+}
+
+console.log("\n--- PRUEBA DEL ERROR 2 ---");
+
+const resultadoAnterior = ventasPorCiudadError(ventas, "Medellín");
+const resultadoCorregido = ventasPorCiudadM(ventas, "Medellín");
+
+console.log(
+    "Tipo de resultado anterior:",
+    Array.isArray(resultadoAnterior) ? "Arreglo" : typeof resultadoAnterior
+);
+
+console.log("Resultado corregido:", resultadoCorregido);
+
+console.log(
+    "¿La corrección coincide con el ciclo?:",
+    isDeepStrictEqual(
+        ventasPorCiudad(ventas, "Medellín"),
+        resultadoCorregido
+    ) ? "OK" : "DIFERENTE"
+);

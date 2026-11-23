@@ -41,8 +41,6 @@ function ventasPorCiudad(ventas, ciudad) {
     return total;
 }
 
-/*CON MÉTODOS*/
-
 function totalVendidoM(ventas) {
     if (ventas.length === 0) return null;
 
@@ -72,8 +70,6 @@ function ventasPorCiudadM(ventas, ciudad) {
         return acumulador + valorVenta(venta);
     }, 0);
 }
-
-/*AGRUPACIONES*/
 
 function totalPorCiudad(ventas) {
     return ventas.reduce((acumulador, venta) => {
@@ -111,8 +107,6 @@ function unidadesPorProducto(ventas) {
     }, {});
 }
 
-/* RANKING DE PRODUCTOS*/
-
 function topProductosPorValor(ventas, k) {
     const agrupados = ventas.reduce((acumulador, venta) => {
         const producto = venta.producto.trim();
@@ -135,8 +129,11 @@ function topProductosPorValor(ventas, k) {
         .slice(0, Math.max(0, k));
 }
 
-/* EXPORTAR FUNCIONES*/
-
+function ventasDelDia(ventas, fecha) {
+    return ventas.filter(venta => {
+        return venta.fecha === fecha;
+    });
+}
 module.exports = {
     valorVenta,
     totalVendido,
@@ -149,5 +146,6 @@ module.exports = {
 
     totalPorCiudad,
     unidadesPorProducto,
-    topProductosPorValor
+    topProductosPorValor,
+    ventasDelDia
 };

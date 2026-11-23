@@ -136,3 +136,59 @@ Utilizo reduce() para agrupar las ventas por producto, sort() para ordenar de ma
 CONCLUSIÓN
 
 Con esta actividad aprendí a utilizar métodos de arreglos como map(), filter() y reduce() para trabajar con información de ventas. También aprendí a agrupar datos mediante objetos, ordenar productos según el dinero generado y seleccionar los primeros resultados sin modificar el arreglo original. Además, comprendí la importancia de comparar los resultados de los ciclos con los métodos para comprobar que ambos realizan el mismo proceso.
+
+ERRORES REPORTADOS POR LA GERENTE
+
+ERROR 1: CÁLCULO INCORRECTO DEL TOTAL VENDIDO
+
+Síntoma:
+El total vendido no coincidía con el resultado esperado.
+
+Entrada que lo produce:
+Una venta con cantidad mayor que uno. Por ejemplo:
+producto: Café
+cantidad: 3
+precio: 20000
+
+Hipótesis:
+La función estaba sumando solamente el precio del producto y no tenía en cuenta la cantidad vendida.
+
+Prueba realizada:
+Se comparó el resultado de la función anterior con el cálculo correcto de cantidad por precio.
+
+Resultado anterior: 20000
+Resultado esperado: 60000
+
+Causa:
+En la versión anterior se acumulaba venta.precio en lugar de multiplicar venta.cantidad por venta.precio.
+
+Corrección:
+Se creó la función valorVenta(venta), que multiplica la cantidad por el precio. Después se utilizó esta función dentro de reduce() para acumular correctamente el dinero generado por las ventas.
+
+
+ERROR 2: RESULTADO INCORRECTO EN VENTAS POR CIUDAD
+
+Síntoma:
+La función de ventas por ciudad devolvía un arreglo de ventas en lugar del total de dinero generado. También podía dejar por fuera registros cuando el nombre de la ciudad tenía diferencias de espacios o mayúsculas.
+
+Entrada que lo produce:
+Ventas registradas con nombres como:
+"Medellín"
+"medellín"
+"Medellín "
+
+Hipótesis:
+La función solamente estaba filtrando las ventas, pero no estaba sumando su valor. Además, comparaba los nombres sin normalizarlos.
+
+Prueba realizada:
+Se ejecutó la función anterior con una ciudad y se verificó que el resultado era un arreglo. Después se ejecutó la versión corregida y se comparó con la función que utiliza ciclos.
+
+Causa:
+La función utilizaba filter() como resultado final y no aplicaba una normalización de los nombres de las ciudades.
+
+Corrección:
+Se utilizó trim() y toLowerCase() para normalizar los nombres. Después se combinó filter() con reduce() para seleccionar las ventas de la ciudad y sumar el valor de cada una.
+
+CONCLUSIÓN DE LAS PRUEBAS
+
+Se reprodujeron los dos comportamientos incorrectos de las versiones anteriores y se verificó que las funciones corregidas producen los resultados esperados. Las pruebas permiten comprobar que los cálculos y las agrupaciones funcionan correctamente con los datos disponibles.
